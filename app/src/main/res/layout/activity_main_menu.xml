@@ -13,7 +13,7 @@
 
     <Button
         android:onClick="goToModuleMenu"
-        android:text="@string/button"
+        android:text="@string/dutch_lang"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
@@ -27,7 +27,7 @@
 
     <Button
         android:onClick="goToModuleMenu"
-        android:text="@string/button2"
+        android:text="@string/french_lang"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/button2"
@@ -38,7 +38,7 @@
 
     <Button
         android:onClick="goToModuleMenu"
-        android:text="@string/button3"
+        android:text="@string/romanian_lang"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/button3"
@@ -49,7 +49,7 @@
 
     <Button
         android:onClick="goToModuleMenu"
-        android:text="@string/button4"
+        android:text="@string/spanish_lang"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="55dp"
