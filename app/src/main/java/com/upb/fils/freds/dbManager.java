@@ -35,9 +35,16 @@ public class dbManager extends SQLiteOpenHelper{
     private SQLiteDatabase db;
 
     public dbManager (Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
-        super(context, name, factory, version);
+        super(context, name, null, 1);
     }
 
+    public void open(){
+        db = this.getWritableDatabase();
+    }
+
+    public void close() {
+        db.close();
+    }
 
     public void onCreate (SQLiteDatabase db) {
         db.execSQL("CREATE TABLE IF NOT EXISTS " + table_name + "(" +
