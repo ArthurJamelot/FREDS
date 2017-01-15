@@ -12,7 +12,7 @@
     android:background="@drawable/picture3">
 
     <TextView
-        android:text="@string/textview3"
+        android:text="@string/introText3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/textView4"
@@ -49,7 +49,7 @@
         android:layout_centerHorizontal="true" />
 
     <TextView
-        android:text="@string/textview"
+        android:text="@string/introText1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/textView2"
@@ -62,7 +62,7 @@
         android:textAlignment="center"/>
 
     <TextView
-        android:text="@string/textview2"
+        android:text="@string/introText2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="42dp"
