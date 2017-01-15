@@ -6,4 +6,8 @@
     <string name="textview2">All our courses are free</string>
     <string name="textview3">You can study from anywhere</string>
     <string name="title_activity_main_menu">MainMenu</string>
+    <string name="title_activity_lesson">Lesson</string>
+    <string name="to_fill">To fill</string>
+    <string name="test">Test</string>
+    <string name="success">Passed!</string>
 </resources>
