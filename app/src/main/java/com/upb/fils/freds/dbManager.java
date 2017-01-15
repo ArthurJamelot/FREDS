@@ -36,7 +36,7 @@ public class dbManager extends SQLiteOpenHelper{
 
     private SQLiteDatabase db;
 
-    public dbManager getInstance(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
+    public static dbManager getInstance(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         if(singleton == null)
             singleton = new dbManager(context, name, factory, version);
         return singleton;
