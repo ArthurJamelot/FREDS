@@ -2,6 +2,7 @@ package com.upb.fils.freds;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.os.StrictMode;
@@ -27,7 +28,7 @@ public class dbManager extends SQLiteOpenHelper{
     private static final String isNotDoneTag = "TEST";
 
     //language tags
-    private static final String lang_ro      = "ROMANIAN";
+    private static final String lang_ro      = "Romanian";
 
     private SQLiteDatabase db;
 
@@ -82,5 +83,13 @@ public class dbManager extends SQLiteOpenHelper{
         for(int i = 0; i < word_pairs.length; i++) {
             insertEntry(lang_ro, 1, word_pairs[i][0], word_pairs[i][1]);
         }
+    }
+
+    public Cursor getAllWordsForLessonAndLanguage(int lesson, String language) {
+        Cursor c = db.query(table_name,
+                new String[] {id_col, word_in_english_col, word_col, done_col},
+                language_col +" = " + language +" AND " + lesson_col + " = " + lesson,
+                null, null, null, null);
+        return c;
     }
 }
