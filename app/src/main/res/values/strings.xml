@@ -4,10 +4,17 @@
     <string name="textview">FREDS will help you improve your foreign languages</string>
     <string name="start_lesson">Start Lesson</string>
     <string name="textview2">All our courses are free</string>
-    <string name="textview3">You can study from anywhere</string>
+    <string name="textview3">You can learn a new language from anywhere</string>
     <string name="title_activity_main_menu">MainMenu</string>
     <string name="title_activity_lesson">Lesson</string>
     <string name="to_fill">To fill</string>
     <string name="test">Test</string>
     <string name="success">Passed!</string>
+    <string name="button">Dutch</string>
+    <string name="button3">Romanian</string>
+    <string name="button2">French</string>
+    <string name="textview4">FREDS Languages</string>
+    <string name="title_activity_module_menu">ModuleMenu</string>
+    <string name="button4">Spanish</string>
+    <string name="action_settings">Settings</string>
 </resources>
