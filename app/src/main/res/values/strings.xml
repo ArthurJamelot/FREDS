@@ -1,10 +1,10 @@
 <resources>
     <string name="app_name" translatable="false">FREDS</string>
     <string name="hello">Welcome to FREDS!</string>
-    <string name="textview">FREDS will help you improve your foreign languages</string>
+    <string name="introText1">FREDS will help you improve your foreign languages</string>
     <string name="start_lesson">Start Lesson</string>
-    <string name="textview2">All our courses are free</string>
-    <string name="textview3">You can learn a new language from anywhere</string>
+    <string name="introText2">All our courses are free</string>
+    <string name="introText3">You can learn a new language from anywhere</string>
     <string name="title_activity_main_menu">MainMenu</string>
     <string name="title_activity_lesson">Lesson</string>
     <string name="to_fill">To fill</string>
