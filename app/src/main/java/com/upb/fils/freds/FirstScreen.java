@@ -17,5 +17,6 @@ public class FirstScreen extends AppCompatActivity {
 
     public void goToMainMenu(View view){
         Intent intent = new Intent(this, MainMenu.class);
+        startActivity(intent);
     }
 }
