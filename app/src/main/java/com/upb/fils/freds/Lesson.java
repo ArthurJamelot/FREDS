@@ -56,6 +56,7 @@ public class Lesson extends AppCompatActivity {
 
             }
         };
+        listView.setOnItemClickListener(itemClickListener);
     }
 
 
