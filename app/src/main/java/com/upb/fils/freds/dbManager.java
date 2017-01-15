@@ -15,6 +15,8 @@ import java.util.ArrayList;
 
 public class dbManager extends SQLiteOpenHelper{
 
+    private static dbManager singleton;
+
     private static final String table_name = "data_table";
 
     // Names of columns
@@ -34,10 +36,23 @@ public class dbManager extends SQLiteOpenHelper{
 
     private SQLiteDatabase db;
 
-    public dbManager (Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
-        super(context, name, factory, version);
+    public static dbManager getInstance(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
+        if(singleton == null)
+            singleton = new dbManager(context, name, factory, version);
+        return singleton;
     }
 
+    private dbManager (Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
+        super(context, name, null, 1);
+    }
+
+    public void open(){
+        db = this.getWritableDatabase();
+    }
+
+    public void close() {
+        db.close();
+    }
 
     public void onCreate (SQLiteDatabase db) {
         db.execSQL("CREATE TABLE IF NOT EXISTS " + table_name + "(" +
@@ -50,8 +65,11 @@ public class dbManager extends SQLiteOpenHelper{
                 ")"
         );
 
+        open();
         // Create entries in the database
         createEntries();
+
+        close();
     }
 
     @Override
@@ -64,6 +82,7 @@ public class dbManager extends SQLiteOpenHelper{
     Returns the id of the Entry if it's succeeded.
     */
     public long insertEntry(String language, String lesson, String word_english, String word) {
+        open();
         ContentValues values = new ContentValues();
         values.put(language_col, language);
         values.put(lesson_col, lesson);
@@ -72,6 +91,7 @@ public class dbManager extends SQLiteOpenHelper{
         // tag the word as not done
         values.put(done_col, isNotDoneTag);
         return db.insert(table_name, null, values);
+        close();
     }
 
     // Will create entries in the table
@@ -88,14 +108,17 @@ public class dbManager extends SQLiteOpenHelper{
     }
 
     public Cursor getAllWordsForLessonAndLanguage(int lesson, String language) {
+        open();
         Cursor c = db.query(table_name,
                 new String[] {id_col, word_in_english_col, word_col, done_col},
                 language_col +" = " + language +" AND " + lesson_col + " = " + lesson,
                 null, null, null, null);
+        close();
         return c;
     }
 
     public ArrayList<String> getAllLessonsForLanguage(String language) {
+        open();
         Cursor c = db.query(true ,table_name,  new String[] {lesson_col}, language_col + " = " + language, null, null, null, null, null);
 
         ArrayList<String> results = new ArrayList<String>();
@@ -108,6 +131,22 @@ public class dbManager extends SQLiteOpenHelper{
             }
         }
 
+        close();
         return results;
+    }
+
+    // Gets the id of one word and sets its "DONE" attribute to "done"
+    public void validateWord(int id){
+        open();
+        //Search for the ID in the db
+        Cursor c = db.query(table_name, new String[] {id_col}, id_col + " = " + id, null, null, null, null, null);
+        if(c.getCount() != 1) {
+            //TODO trigger an error
+            return;
+        }
+        else {
+            bdd.execSQL("UPDATE " + table_name  + " SET " + done_col + " = " + isDoneTag + " WHERE " + id_col + " = " + id +";");
+        }
+        close();
     }
 }
