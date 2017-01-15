@@ -111,11 +111,13 @@ public class dbManager extends SQLiteOpenHelper{
         return results;
     }
 
+    // Gets the id of one word and sets its "DONE" attribute to "done"
     public void validateWord(int id){
         //Search for the ID in the db
         Cursor c = db.query(table_name, new String[] {id_col}, id_col + " = " + id, null, null, null, null, null);
         if(c.getCount() != 1) {
             //TODO trigger an error
+            return;
         }
         else {
             bdd.execSQL("UPDATE " + table_name  + " SET " + done_col + " = " + isDoneTag + " WHERE " + id_col + " = " + id +";");
