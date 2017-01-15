@@ -7,6 +7,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.os.StrictMode;
 
+import java.util.ArrayList;
+
 /**
  * Created by Vlad Saceanu on 01/15/17.
  */
@@ -41,7 +43,7 @@ public class dbManager extends SQLiteOpenHelper{
         db.execSQL("CREATE TABLE IF NOT EXISTS " + table_name + "(" +
                 id_col + "INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 language_col + " VARCHAR, " +
-                lesson_col + " INTEGER, " +
+                lesson_col + " VARCHAR, " +
                 word_in_english_col + " VARCHAR, " +
                 word_col + " VARCHAR, " +
                 done_col + " VARCHAR " +
@@ -61,7 +63,7 @@ public class dbManager extends SQLiteOpenHelper{
     This method inserts an entry in the DB.
     Returns the id of the Entry if it's succeeded.
     */
-    public long insertEntry(String language, int lesson, String word_english, String word) {
+    public long insertEntry(String language, String lesson, String word_english, String word) {
         ContentValues values = new ContentValues();
         values.put(language_col, language);
         values.put(lesson_col, lesson);
@@ -81,7 +83,7 @@ public class dbManager extends SQLiteOpenHelper{
         };
 
         for(int i = 0; i < word_pairs.length; i++) {
-            insertEntry(lang_ro, 1, word_pairs[i][0], word_pairs[i][1]);
+            insertEntry(lang_ro, "Introduction", word_pairs[i][0], word_pairs[i][1]);
         }
     }
 
@@ -90,6 +92,11 @@ public class dbManager extends SQLiteOpenHelper{
                 new String[] {id_col, word_in_english_col, word_col, done_col},
                 language_col +" = " + language +" AND " + lesson_col + " = " + lesson,
                 null, null, null, null);
+        return c;
+    }
+
+    public ArrayList<String> getAllLessonsForLanguage(String language) {
+        Cursor c = db.query(true ,table_name,  new String[] {lesson_col}, language_col + " = " + language;
         return c;
     }
 }
