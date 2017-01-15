@@ -90,8 +90,9 @@ public class dbManager extends SQLiteOpenHelper{
         values.put(word_col, word);
         // tag the word as not done
         values.put(done_col, isNotDoneTag);
-        return db.insert(table_name, null, values);
+        long r =  db.insert(table_name, null, values);
         close();
+        return r;
     }
 
     // Will create entries in the table
@@ -107,7 +108,7 @@ public class dbManager extends SQLiteOpenHelper{
         }
     }
 
-    public Cursor getAllWordsForLessonAndLanguage(int lesson, String language) {
+    public Cursor getAllWordsForLessonAndLanguage(String lesson, String language) {
         open();
         Cursor c = db.query(table_name,
                 new String[] {id_col, word_in_english_col, word_col, done_col},
@@ -145,7 +146,7 @@ public class dbManager extends SQLiteOpenHelper{
             return;
         }
         else {
-            bdd.execSQL("UPDATE " + table_name  + " SET " + done_col + " = " + isDoneTag + " WHERE " + id_col + " = " + id +";");
+            db.execSQL("UPDATE " + table_name  + " SET " + done_col + " = " + isDoneTag + " WHERE " + id_col + " = " + id +";");
         }
         close();
     }
