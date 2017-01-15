@@ -96,7 +96,18 @@ public class dbManager extends SQLiteOpenHelper{
     }
 
     public ArrayList<String> getAllLessonsForLanguage(String language) {
-        Cursor c = db.query(true ,table_name,  new String[] {lesson_col}, language_col + " = " + language;
-        return c;
+        Cursor c = db.query(true ,table_name,  new String[] {lesson_col}, language_col + " = " + language, null, null, null, null, null);
+
+        ArrayList<String> results = new ArrayList<String>();
+
+        if (c.getCount() != 0) {
+            c.moveToFirst();
+            for (int i = 0; i < c.getCount(); i++) {
+                results.add(c.getString(0));
+                c.moveToNext();
+            }
+        }
+
+        return results;
     }
 }
