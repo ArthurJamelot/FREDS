@@ -10,11 +10,11 @@
     <string name="to_fill">To fill</string>
     <string name="test">Test</string>
     <string name="success">Passed!</string>
-    <string name="button">Dutch</string>
-    <string name="button3">Romanian</string>
-    <string name="button2">French</string>
+    <string name="dutch_lang">Dutch</string>
+    <string name="romanian_lang">Romanian</string>
+    <string name="french_lang">French</string>
     <string name="textview4">FREDS Languages</string>
     <string name="title_activity_module_menu">ModuleMenu</string>
-    <string name="button4">Spanish</string>
+    <string name="spanish_lang">Spanish</string>
     <string name="action_settings">Settings</string>
 </resources>
