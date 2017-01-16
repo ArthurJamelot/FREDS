@@ -28,7 +28,8 @@ public class Lesson extends AppCompatActivity {
 
         String[] columns = new String[]{"_id", "wordEN", "word", "done"};
 
-        Cursor myData = dbManager.getInstance(this, null, null, 1).getAllWordsForLessonAndLanguage("Introduction", "Romanian");
+        DBManager db = new DBManager(this);
+        Cursor myData = db.getAllWordsForLessonAndLanguage("Introduction", "Romanian");
 
         String[] from = new String[]{"wordEN", "word", "done"};
         int[] to = new int[]{R.id.word_in_english, R.id.word_in_foreign_language, R.id.test_yourself};

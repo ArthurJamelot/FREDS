@@ -16,10 +16,12 @@ public class ModuleMenu extends AppCompatActivity {
         language = getIntent().getStringExtra("language");
 
         lv = (ListView) findViewById(R.id.listViewOfModules);
+
+        DBManager dbManager = new DBManager(this);
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(
                 this,
                 android.R.layout.simple_list_item_1,
-                dbManager.getInstance(this, null, null, 1).getAllLessonsForLanguage(language) );
+                dbManager.getAllLessonsForLanguage(language) );
 
         lv.setAdapter(arrayAdapter);
     }

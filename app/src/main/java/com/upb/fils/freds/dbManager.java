@@ -13,68 +13,38 @@ import java.util.ArrayList;
  * Created by Vlad Saceanu on 01/15/17.
  */
 
-public class dbManager extends SQLiteOpenHelper{
+public class DBManager {
 
-    private static dbManager singleton;
-
-    private static final String table_name = "data_table";
+    static final String table_name = "data_table";
 
     // Names of columns
-    private static final String id_col = "_id";
-    private static final String language_col = "mLanguage";
-    private static final String lesson_col = "mLesson";
-    private static final String word_in_english_col = "mWordEN";
-    private static final String word_col = "mWord";
-    private static final String done_col = "mDone";
+    static final String id_col = "_id";
+    static final String language_col = "mLanguage";
+    static final String lesson_col = "mLesson";
+    static final String word_in_english_col = "mWordEN";
+    static final String word_col = "mWord";
+    static final String done_col = "mDone";
 
     //tags for "done" or "not done"
-    private static final String isDoneTag    = "DONE";
-    private static final String isNotDoneTag = "TEST";
+    static final String isDoneTag    = "DONE";
+    static final String isNotDoneTag = "TEST";
 
     //language tags
     private static final String lang_ro      = "Romanian";
 
+    private DBManagerHelper dbManagerHelper;
     private SQLiteDatabase db;
 
-    public static dbManager getInstance(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
-        if(singleton == null)
-            singleton = new dbManager(context, name, factory, version);
-        return singleton;
-    }
-
-    private dbManager (Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
-        super(context, name, null, 1);
+    public DBManager(Context context) {
+        dbManagerHelper= new DBManagerHelper(context, "data", null, 1);
     }
 
     public void open(){
-        db = this.getWritableDatabase();
+        db = dbManagerHelper.getWritableDatabase();
     }
 
     public void close() {
         db.close();
-    }
-
-    public void onCreate (SQLiteDatabase db) {
-        db.execSQL("CREATE TABLE IF NOT EXISTS " + table_name + "(" +
-                id_col + "INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                language_col + " VARCHAR, " +
-                lesson_col + " VARCHAR, " +
-                word_in_english_col + " VARCHAR, " +
-                word_col + " VARCHAR, " +
-                done_col + " VARCHAR " +
-                ")"
-        );
-
-        open();
-        // Create entries in the database
-        createEntries();
-
-        close();
-    }
-
-    @Override
-    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-
     }
 
     /*
@@ -96,7 +66,7 @@ public class dbManager extends SQLiteOpenHelper{
     }
 
     // Will create entries in the table
-    private void createEntries() {
+    public void createEntries() {
         //Create words in Romanian for lesson 1
         String word_pairs [][] = new String[][]{
                 {"Hello",           "Salut"},
@@ -112,7 +82,7 @@ public class dbManager extends SQLiteOpenHelper{
         open();
         Cursor c = db.query(table_name,
                 new String[] {id_col, word_in_english_col, word_col, done_col},
-                language_col +" = " + language +" AND " + lesson_col + " = " + lesson,
+                language_col +" = " + language +" AND " + lesson_col + " = '" + lesson + "'",
                 null, null, null, null);
         close();
         return c;
@@ -120,7 +90,7 @@ public class dbManager extends SQLiteOpenHelper{
 
     public ArrayList<String> getAllLessonsForLanguage(String language) {
         open();
-        Cursor c = db.query(true ,table_name,  new String[] {lesson_col}, language_col + " = " + language, null, null, null, null, null);
+        Cursor c = db.query(true ,table_name,  new String[] {lesson_col}, language_col + " = '" + language + "'", null, null, null, null, null);
 
         ArrayList<String> results = new ArrayList<String>();
 
@@ -139,15 +109,7 @@ public class dbManager extends SQLiteOpenHelper{
     // Gets the id of one word and sets its "DONE" attribute to "done"
     public void validateWord(int id){
         open();
-        //Search for the ID in the db
-        Cursor c = db.query(table_name, new String[] {id_col}, id_col + " = " + id, null, null, null, null, null);
-        if(c.getCount() != 1) {
-            //TODO trigger an error
-            return;
-        }
-        else {
             db.execSQL("UPDATE " + table_name  + " SET " + done_col + " = " + isDoneTag + " WHERE " + id_col + " = " + id +";");
-        }
         close();
     }
 }
