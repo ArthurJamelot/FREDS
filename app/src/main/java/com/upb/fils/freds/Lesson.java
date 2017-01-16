@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.Locale;
@@ -52,7 +53,7 @@ public class Lesson extends AppCompatActivity {
                         RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
                 intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault());
                 intent.putExtra(RecognizerIntent.EXTRA_PROMPT,
-                        "Say " + view.findViewById(R.id.word_in_foreign_language) + "!");
+                        "Say " + ((TextView)view.findViewById(R.id.word_in_foreign_language)).getText() + "!");
                 try {
                     startActivityForResult(intent, REQ_CODE_SPEECH_INPUT);
                 } catch (ActivityNotFoundException a) {

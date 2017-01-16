@@ -13,7 +13,6 @@ public class FirstScreen extends AppCompatActivity {
         setContentView(R.layout.activity_first_screen);
         //Initialize data
         DBManager dbManager = new DBManager(this);
-        dbManager.createEntries();
     }
 
     public void goToMainMenu(View view){

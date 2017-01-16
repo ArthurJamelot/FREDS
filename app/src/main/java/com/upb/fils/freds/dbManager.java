@@ -34,9 +34,14 @@ public class DBManager {
 
     private DBManagerHelper dbManagerHelper;
     private SQLiteDatabase db;
+    private static boolean firstLaunch=true;
 
     public DBManager(Context context) {
         dbManagerHelper= new DBManagerHelper(context, "data", null, 1);
+        if (firstLaunch) {
+            this.createEntries();
+            firstLaunch = false;
+        }
     }
 
     public void open(){
