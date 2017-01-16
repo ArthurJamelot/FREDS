@@ -14,6 +14,11 @@ import android.widget.Toast;
 
 import java.util.Locale;
 
+import static com.upb.fils.freds.DBManager.done_col;
+import static com.upb.fils.freds.DBManager.id_col;
+import static com.upb.fils.freds.DBManager.word_col;
+import static com.upb.fils.freds.DBManager.word_in_english_col;
+
 public class Lesson extends AppCompatActivity {
 
     private final int REQ_CODE_SPEECH_INPUT = 100;
@@ -26,12 +31,13 @@ public class Lesson extends AppCompatActivity {
 
         listView = (ListView) findViewById(R.id.ListViewLessonElements);
 
-        String[] columns = new String[]{"_id", "wordEN", "word", "done"};
+        String[] columns = new String[]{id_col, word_in_english_col, word_col, done_col};
 
         DBManager db = new DBManager(this);
+        db.open();
         Cursor myData = db.getAllWordsForLessonAndLanguage("Introduction", "Romanian");
 
-        String[] from = new String[]{"wordEN", "word", "done"};
+        String[] from = new String[]{word_in_english_col, word_col, done_col};
         int[] to = new int[]{R.id.word_in_english, R.id.word_in_foreign_language, R.id.test_yourself};
 
         SimpleCursorAdapter adapter = new SimpleCursorAdapter(this, R.layout.row_lesson_element, myData, from, to, 0);
@@ -58,6 +64,7 @@ public class Lesson extends AppCompatActivity {
             }
         };
         listView.setOnItemClickListener(itemClickListener);
+        db.close();
     }
 
 

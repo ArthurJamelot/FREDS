@@ -1,9 +1,14 @@
 package com.upb.fils.freds;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 
 public class ModuleMenu extends AppCompatActivity {
 
@@ -24,6 +29,16 @@ public class ModuleMenu extends AppCompatActivity {
                 dbManager.getAllLessonsForLanguage(language) );
 
         lv.setAdapter(arrayAdapter);
+        AdapterView.OnItemClickListener onItemClickListener = new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(getBaseContext(), Lesson.class);
+                intent.putExtra("language", language);
+                intent.putExtra("lesson", ((TextView) view).getText());
+                startActivity(intent);
+            }
+        };
+        lv.setOnItemClickListener(onItemClickListener);
     }
 
 

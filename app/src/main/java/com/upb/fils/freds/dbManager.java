@@ -79,12 +79,10 @@ public class DBManager {
     }
 
     public Cursor getAllWordsForLessonAndLanguage(String lesson, String language) {
-        open();
         Cursor c = db.query(table_name,
                 new String[] {id_col, word_in_english_col, word_col, done_col},
-                language_col +" = " + language +" AND " + lesson_col + " = '" + lesson + "'",
+                language_col +" = '" + language +"' AND " + lesson_col + " = '" + lesson + "'",
                 null, null, null, null);
-        close();
         return c;
     }
 
